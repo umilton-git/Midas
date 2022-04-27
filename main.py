@@ -37,7 +37,7 @@ def fortune(message):
              "Yes.", "Of course, my horse!", "You may rely on it."]
   bot.reply_to(message, responses[val])
 
-@bot.message_handler(regexp="y/n")
+@bot.message_handler(regexp="^y/n$|^Y/n$|^y/N$| y/n$| Y/n$| y/N$|^y/n |^Y/n |^y/N | y/n | Y/n | y/N ")
 def yesno(message):
   val = random.randint(0, 3)
   responses = ['Yes.', 'No.', 'Absolutely.', 'In your dreams.']
@@ -63,7 +63,7 @@ def image(message):
   val = random.randint(0, len(items) - 1)
   bot.send_photo(message.chat.id, items[val].link)
 
-@bot.message_handler(commands=['ass', 'Ass', 'boobs', 'Boobs', 'feet', 'Feet'])
+@bot.message_handler(commands=['butts', 'Butts', 'ass', 'Ass', 'boobs', 'Boobs', 'feet', 'Feet', 'bussy', 'Bussy', 'armpit', 'Armpit', 'armpit', 'armpits', 'Armpits'])
 def huh(message):
   val = random.randint(0, len(what) - 1)
   bot.send_animation(message.chat.id, what[val].link)
