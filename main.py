@@ -13,10 +13,10 @@ client_id = os.getenv('client_id')
 client_secret = os.getenv('client_secret')
 
 client = ImgurClient(client_id, client_secret)
-items = client.get_album_images('vdtQK4W')
-shortstacks = client.get_album_images('HaTCzzP')
-kittens = client.get_album_images('Tr6zHBn')
-what = client.get_album_images('YPDVUcB')
+items = client.get_album_images(os.getenv('item_album'))
+shortstacks = client.get_album_images(os.getenv('shortstack_album'))
+kittens = client.get_album_images(os.getenv('kitten_album'))
+what = client.get_album_images(os.getenv('what_album'))
 bot = telebot.TeleBot(API_KEY)
 
 # Text Based Messages
