@@ -6,6 +6,7 @@ import os
 import telebot
 import random
 from imgurpython import ImgurClient
+from keep_alive import keep_alive
 
 # Setup
 API_KEY = os.getenv('API_KEY')
@@ -47,15 +48,31 @@ def yesno(message):
 @bot.message_handler(regexp="Fuck you Midas|fuck you Midas|fuck you midas|Fuck you midas|Fuck you, Midas|fuck you, Midas|Fuck you, midas")
 def snarky(message):
   val = random.randint(0,10)
+  user_first_name = str(message.from_user.first_name)
   if val == 10:
-    bot.reply_to(message, "Fuck you too, bitch")
+    bot.reply_to(message, "Fuck you too, " + user_first_name + ", you goofy ass dumbass ugly bitch")
 
   else:
     bot.reply_to(message, "Buy me dinner first ;)")
 
+@bot.message_handler(regexp="Thank you Midas|thank you Midas|thank you midas|Thank you midas|Thank you, Midas|thank you, Midas|Thank you, midas|thanks midas|Thanks Midas|thanks Midas|Thanks midas|thanks, Midas|Thanks, midas|Thanks, Midas|thanks, midas")
+def thank(message):
+  user_first_name = str(message.from_user.first_name)
+  bot.reply_to(message, "You're welcome, " + user_first_name + "!")
+
 @bot.message_handler(commands=['help', 'Help'])
 def help(message):
   bot.reply_to(message, "--=======ＭＩＤＡＳ ＢＯＴ=======--\n\n/help - get help\n/start - Start Midas\n/8ball - Try your luck!\n/Fizz - Buzz (Test Command)\ny/n - yes/no\n\nImage Commands:\n/image\n/cat\n/shortstack\n/loli\n\nWIP:\n/ass\n/boobs\n/feet\n\nWIP: Markov Chain Text")
+
+@bot.message_handler(content_types=['sticker'])
+def handling_sticker(message):
+  val = random.randint(0,4)
+  sticker_cycle = ["CAACAgEAAxkBAAETdGJiahF2e2O8yKZkVIVnRLKtvDYJNwAC1wIAAs28IUVLeydhYQI9QiQE", "CAACAgIAAxkBAAETdBliagVbx6vYMZm1h-3AauR6tvFMpQACSAIAAkcGQwU-G-9SZUDTWCQE", "CAACAgEAAxkBAAETdGRiahG1D2Ia86xde6f48cy0S2FU7gACiAIAAo7qIEXfKemTs_RpBSQE", "CAACAgQAAxkBAAETdHdiahOEIuU6qOXI11IM5LGKMKMnUAACOwsAAiXR4VKg1bwqZCbuciQE", "CAACAgEAAxkBAAETdHliahO6iGW24XFP11Gw0_brcBk-tgACOQADttEdGcMhWcnU78kDJAQ"]
+  try:
+    if message.reply_to_message.from_user.first_name == 'Midas':
+      bot.send_sticker(message.chat.id, sticker_cycle[val], message.from_user)
+  except:
+    pass
 
 # Image & Animation Messages
 @bot.message_handler(commands=['shortstack', 'Shortstack'])
@@ -75,12 +92,12 @@ def image(message):
 
 @bot.message_handler(commands=['loli', 'Loli'])
 def loli(message):
-  bot.send_animation(message.chat.id, jail[0].link)
+  bot.send_video(message.chat.id, jail[0].link)
 
 @bot.message_handler(commands=['butts', 'Butts', 'ass', 'Ass', 'boobs', 'Boobs', 'feet', 'Feet', 'bussy', 'Bussy', 'armpit', 'Armpit', 'armpit', 'armpits', 'Armpits', 'coochie', 'Coochie'])
 def huh(message):
   val = random.randint(0, len(what) - 1)
-  bot.send_animation(message.chat.id, what[val].link)
+  bot.send_video(message.chat.id, what[val].link)
   
-  
+keep_alive()
 bot.polling()

@@ -12,6 +12,7 @@ imgurpython = "^1.1.7"
 telegram = "^0.0.1"
 redis = "^4.2.2"
 retry = "^0.9.2"
+Flask = "^2.1.1"
 
 [tool.poetry.dev-dependencies]
 
